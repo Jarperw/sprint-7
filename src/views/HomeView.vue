@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid mt-4">
     <div class="row">
       <div class="col-12 col-sm-7 col-md-5 col-lg-4 col-xxl-3">
         <p>¿Qué quieres hacer?</p>
