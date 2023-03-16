@@ -2,10 +2,10 @@
   <div>
     <div class="row">
       <div class="col-12 col-sm-7 col-md-5 col-lg-4 col-xxl-3">
-        <p>¿Que quieres hacer?</p>
+        <p>¿Qué quieres hacer?</p>
         <label>
           <input type="checkbox" value="500" v-model.number="precios" />
-          Una paguina web (500 €)
+          Una página web (500 €)
         </label>
 
         <Panel v-if="precios.includes(500)" @total="totalPanel = $event"></Panel>
