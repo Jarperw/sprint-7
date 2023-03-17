@@ -10,7 +10,15 @@
         <button @click="paginas--">
           <img src="../assets/minus-solid.svg" />
         </button>
+        <!-- modal -->
+        <div class="d-inline ms-1">
+          <b-icon role="button" @click="$bvModal.show('modal-1')" icon="info-circle-fill" variant="secondary"></b-icon>
+          <b-modal class="prueba" id="modal-1" size="xl" content-class="border border-4 border-dark rounded-5" hide-footer hide-header centered>
+            <p class="my-4 text-center">Este componente debe indicar el número de paginas que tendrá su sitio web.</p>
+          </b-modal>
+        </div>
       </div>
+
       <div class="idiomas">
         <label for="idiomas">Número de idiomas</label>
         <button @click="idiomas++">
@@ -20,6 +28,13 @@
         <button @click="idiomas--">
           <img src="../assets/minus-solid.svg" />
         </button>
+        <!-- modal -->
+        <div class="d-inline ms-1">
+          <b-icon role="button" @click="$bvModal.show('modal-2')" icon="info-circle-fill" variant="secondary"></b-icon>
+          <b-modal id="modal-2" size="xl" content-class="border border-4 border-dark rounded-5" hide-footer hide-header centered>
+            <p class="my-4 text-center">Este componente debe indicar el número de idiomas que tendrá su sitio web.</p>
+          </b-modal>
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +75,7 @@ export default {
 <style scoped>
 .caja {
   position: relative;
-  width: 18em;
+  width: 20em;
   right: 0.1em;
   animation-name: caja;
   animation-duration: 1s;
@@ -68,7 +83,7 @@ export default {
 
 @keyframes caja {
   0% { width: 0; height: 0; }
-  100% { width: 18em; height: 10.5em; }
+  100% { width: 20em; height: 10.5em; }
 }
 
 .paginas,
@@ -92,6 +107,7 @@ input[type="number"] {
   width: 15%;
   border: none;
   vertical-align: middle;
+  text-align: center;
 }
 
 input[type="number"]::-webkit-inner-spin-button {
@@ -119,4 +135,18 @@ img {
   width: 1.3em;
   margin-bottom: 0.13em;
 }
+
+.b-icon.bi {
+  vertical-align: -0.25em;
+  font-size: larger;
+  fill: #aaa;
+}
+
+@media (max-width: 992px) {
+  ::v-deep .modal-body {
+    font-size: 0.8em;
+  }
+}
+
+
 </style>
