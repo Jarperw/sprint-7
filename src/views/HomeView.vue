@@ -56,7 +56,11 @@ export default {
       totalPanel: 0,
       presupuesto: '',
       cliente: '',
-      presupuestos: [],
+      presupuestos: [
+        { presupuesto: 'eden', cliente: 'roberto', total: 150, fecha: 168},
+        { presupuesto: 'casalinga', cliente: 'pepe', total: 200, fecha: 175},
+        { presupuesto: 'casalinga', cliente: 'pepe', total: 200, fecha: 164}
+      ],
       error: ''
     };
   },
