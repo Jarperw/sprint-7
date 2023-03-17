@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-5">
     <div class="row">
 
-      <div class="col-12 col-sm-7 col-md-5 col-lg-4 col-xxl-3">  
+      <div class="col-12 col-md-5 col-lg-4 col-xxl-3">  
         <form @submit.prevent="addPresupuestos()">
           <div class="nombre d-flex mb-1">
             <label for="nom"><b>Presupuesto:</b></label>
@@ -15,9 +15,7 @@
           <button class="btn btn-dark mb-5">Guardar Presupuesto</button>
         </form>
           <div class="servicios">
-            <p>
-              <b>Servicios: </b>
-            </p>
+            <p><b>Servicios: </b></p>
             <p>¿Qué quieres hacer?</p>
             <label>
               <input type="checkbox" value="500" v-model.number="precios"/>
@@ -70,9 +68,9 @@ export default {
   },
   methods: {
     addPresupuestos(){
-      if(this.precios.length > 0){
+      if(this.total > 0){
         this.presupuestos.push(
-          { presupuesto: this.presupuesto, cliente: this.cliente, total: this.total}
+          { presupuesto: this.presupuesto, cliente: this.cliente, total: this.total, fecha: new Date().getTime()}
         );
         this.error = '';
         this.presupuesto = '';
@@ -96,10 +94,8 @@ export default {
 .nombre input, 
 .cliente input, 
 select{
-  /* width: 100%; */
   border: none;
   border-bottom: 1px solid #aaa;
-  /* border-radius: 0.6em; */
-   outline: none;
+  outline: none;
 }
 </style>
