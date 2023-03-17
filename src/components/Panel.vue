@@ -53,17 +53,19 @@ export default {
   methods: {
     calcular() {
       this.contador = this.paginas * this.idiomas * 30;
-      this.$emit("total", this.contador);
+      this.$emit("total", this.contador);   
     },
   },
   watch: {
     paginas(valor) {
       if (valor < 1) this.paginas = 1;
       this.calcular();
+      this.$emit('paginas', this.paginas)
     },
     idiomas(valor) {
       if (valor < 1) this.idiomas = 1;
-      this.calcular();
+      this.calcular(); 
+      this.$emit('idiomas', this.idiomas)
     },
   },
   created() {

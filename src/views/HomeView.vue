@@ -21,7 +21,12 @@
               <input type="checkbox" value="500" v-model.number="precios"/>
               Una página web (500 €)
             </label>
-            <Panel v-if="precios.includes(500)" @total="totalPanel = $event"></Panel>
+            <Panel 
+              v-if="precios.includes(500)" 
+              @total="totalPanel = $event"
+              @paginas="paginas = $event"
+              @idiomas="idiomas = $event"
+            ></Panel>
             <label>
               <input type="checkbox" value="300" v-model.number="precios"/>
               Una consultoria SEO (300 €)
@@ -57,7 +62,12 @@ export default {
       presupuesto: '',
       cliente: '',
       presupuestos: [],
-      error: ''
+      error: '',
+      paginas: 1,
+      idiomas: 1,
+      web: false,
+      seo: false,
+      ads: false
     };
   },
   computed: {
@@ -79,7 +89,32 @@ export default {
       }else{
         this.error = 'Elige minimo un servicio';
       }
+    },
+    addQuery(){
+      this.$router.push({
+        query:{
+          paginaWeb: this.web,
+          capmaniaSeo: this.seo,
+          capmaniaAds: this.ads,
+          paginas: this.paginas,
+          idiomas: this.idiomas
+        }
+      })
     }
+  },
+  watch: {
+    precios(value){
+      this.web = value.includes(500) ? true : false
+      this.seo = value.includes(300) ? true : false
+      this.ads = value.includes(200) ? true : false
+      this.addQuery()
+    },
+    paginas(){
+      this.addQuery()
+    },
+    idiomas(){
+      this.addQuery()
+    },
   },
 };
 </script>
