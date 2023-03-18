@@ -18,7 +18,7 @@
             <p><b>Servicios: </b></p>
             <p>¿Qué quieres hacer?</p>
             <label>
-              <input type="checkbox" value="500" v-model.number="precios"/>
+              <input type="checkbox" value="500" v-model.number="precios" v-model="web" @change="checkWeb($event)"/>
               Una página web (500 €)
             </label>
             <Panel 
@@ -26,13 +26,15 @@
               @total="totalPanel = $event"
               @paginas="paginas = $event"
               @idiomas="idiomas = $event"
+              @modificadoPaginas="modificadoPaginas"
+              @modificadoIdiomas="modificadoIdiomas"
             ></Panel>
             <label>
-              <input type="checkbox" value="300" v-model.number="precios"/>
+              <input type="checkbox" value="300" v-model.number="precios" v-model="seo" @change="checkSeo($event)"/>
               Una consultoria SEO (300 €)
             </label>
             <label>
-              <input type="checkbox" value="200" v-model.number="precios"/>
+              <input type="checkbox" value="200" v-model.number="precios" v-model="ads" @change="checkAds($event)"/>
               Una campaña de Google Ads (200 €)
             </label>
             <p>Precio: {{ suma }} €</p>
@@ -91,30 +93,65 @@ export default {
       }
     },
     addQuery(){
-      this.$router.push({
+      this.$router.replace({
         query:{
           paginaWeb: this.web,
-          capmaniaSeo: this.seo,
-          capmaniaAds: this.ads,
+          campaniaSeo: this.seo,
+          campaniaAds: this.ads,
           paginas: this.paginas,
           idiomas: this.idiomas
         }
       })
-    }
+    },
+    checkWeb(e) {
+      this.addQuery()
+    },
+    checkSeo(e) {
+      this.addQuery()
+    },
+    checkAds(e) {
+      this.addQuery()
+    },
+    modificadoPaginas(){
+      this.addQuery()
+    },
+    modificadoIdiomas(){
+      this.addQuery()
+    }, 
   },
   watch: {
-    precios(value){
-      this.web = value.includes(500) ? true : false
-      this.seo = value.includes(300) ? true : false
-      this.ads = value.includes(200) ? true : false
-      this.addQuery()
+    web(newValue) {
+      if(newValue && !this.precios.includes(500)){
+        this.precios.push(500);
+      }else if(!newValue && this.precios.includes(500)){
+        
+      }
     },
-    paginas(){
-      this.addQuery()
+    seo(newValue) {
+      if(newValue && !this.precios.includes(300)){
+        this.precios.push(300);
+      }else if(!newValue && this.precios.includes(500)){
+
+      }
     },
-    idiomas(){
-      this.addQuery()
+    ads(newValue) {
+      if(newValue && !this.precios.includes(200)){
+        this.precios.push(200);
+      }else if(!newValue && this.precios.includes(500)){
+
+      }
     },
+  },
+  mounted(){
+      if (this.$route.query.paginaWeb === "true") {
+          this.web = true;
+        }
+        if (this.$route.query.campaniaSeo === "true") {
+          this.seo = true;
+        }
+        if (this.$route.query.campaniaAds === "true") {
+          this.ads = true;
+        }
   },
 };
 </script>
