@@ -120,38 +120,20 @@ export default {
     }, 
   },
   watch: {
-    web(newValue) {
-      if(newValue && !this.precios.includes(500)){
-        this.precios.push(500);
-      }else if(!newValue && this.precios.includes(500)){
-        
-      }
+    web(valor) {
+      if(valor && !this.precios.includes(500)) this.precios.push(500)
     },
-    seo(newValue) {
-      if(newValue && !this.precios.includes(300)){
-        this.precios.push(300);
-      }else if(!newValue && this.precios.includes(500)){
-
-      }
+    seo(valor) {
+      if(valor && !this.precios.includes(300)) this.precios.push(300)
     },
-    ads(newValue) {
-      if(newValue && !this.precios.includes(200)){
-        this.precios.push(200);
-      }else if(!newValue && this.precios.includes(500)){
-
-      }
+    ads(valor) {
+      if(valor && !this.precios.includes(200)) this.precios.push(200)
     },
   },
   mounted(){
-      if (this.$route.query.paginaWeb === "true") {
-          this.web = true;
-        }
-        if (this.$route.query.campaniaSeo === "true") {
-          this.seo = true;
-        }
-        if (this.$route.query.campaniaAds === "true") {
-          this.ads = true;
-        }
+    if (this.$route.query.paginaWeb === "true") this.web = true;
+    if (this.$route.query.campaniaSeo === "true") this.seo = true;
+    if (this.$route.query.campaniaAds === "true") this.ads = true;
   },
 };
 </script>
