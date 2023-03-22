@@ -6,11 +6,11 @@
         <form @submit.prevent="addPresupuestos()">
           <div class="nombre d-flex mb-1">
             <label for="nom"><b>Presupuesto:</b></label>
-            <input class="ms-2" type="text" id="nom" placeholder="Nombre Presupuesto" v-model="presupuesto" required>
+            <input class="ms-2" type="text" id="nom" placeholder="Nombre Presupuesto" v-model.trim="presupuesto" required>
           </div>
           <div class="cliente d-flex mb-3">
             <label for="clie"><b>Cliente:</b></label>
-            <input class="ms-5" type="text" id="clie" placeholder="Nombre Cliente" v-model="cliente" required>
+            <input class="ms-5" type="text" id="clie" placeholder="Nombre Cliente" v-model.trim="cliente" required>
           </div>
           <button class="btn btn-dark mb-5">Guardar Presupuesto</button>
         </form>
@@ -18,7 +18,7 @@
             <p><b>Servicios: </b></p>
             <p>¿Qué quieres hacer?</p>
             <label>
-              <input type="checkbox" value="500" v-model.number="precios" v-model="web" @change="checkWeb($event)"/>
+              <input type="checkbox" value="500" v-model.number="precios"/>
               Una página web (500 €)
             </label>
             <Panel 
@@ -26,15 +26,13 @@
               @total="totalPanel = $event"
               @paginas="paginas = $event"
               @idiomas="idiomas = $event"
-              @modificadoPaginas="modificadoPaginas"
-              @modificadoIdiomas="modificadoIdiomas"
             ></Panel>
             <label>
-              <input type="checkbox" value="300" v-model.number="precios" v-model="seo" @change="checkSeo($event)"/>
+              <input type="checkbox" value="300" v-model.number="precios"/>
               Una consultoria SEO (300 €)
             </label>
             <label>
-              <input type="checkbox" value="200" v-model.number="precios" v-model="ads" @change="checkAds($event)"/>
+              <input type="checkbox" value="200" v-model.number="precios"/>
               Una campaña de Google Ads (200 €)
             </label>
             <p>Precio: {{ suma }} €</p>
@@ -93,47 +91,30 @@ export default {
       }
     },
     addQuery(){
-      this.$router.replace({
+      this.$router.push({
         query:{
           paginaWeb: this.web,
-          campaniaSeo: this.seo,
-          campaniaAds: this.ads,
+          capmaniaSeo: this.seo,
+          capmaniaAds: this.ads,
           paginas: this.paginas,
           idiomas: this.idiomas
         }
       })
-    },
-    checkWeb(e) {
-      this.addQuery()
-    },
-    checkSeo(e) {
-      this.addQuery()
-    },
-    checkAds(e) {
-      this.addQuery()
-    },
-    modificadoPaginas(){
-      this.addQuery()
-    },
-    modificadoIdiomas(){
-      this.addQuery()
-    }, 
+    }
   },
   watch: {
-    web(valor) {
-      if(valor && !this.precios.includes(500)) this.precios.push(500)
+    precios(value){
+      this.web = value.includes(500) ? true : false
+      this.seo = value.includes(300) ? true : false
+      this.ads = value.includes(200) ? true : false
+      this.addQuery()
     },
-    seo(valor) {
-      if(valor && !this.precios.includes(300)) this.precios.push(300)
+    paginas(){
+      this.addQuery()
     },
-    ads(valor) {
-      if(valor && !this.precios.includes(200)) this.precios.push(200)
+    idiomas(){
+      this.addQuery()
     },
-  },
-  mounted(){
-    if (this.$route.query.paginaWeb === "true") this.web = true;
-    if (this.$route.query.campaniaSeo === "true") this.seo = true;
-    if (this.$route.query.campaniaAds === "true") this.ads = true;
   },
 };
 </script>

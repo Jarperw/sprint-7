@@ -45,29 +45,27 @@ export default {
   name: "Panel",
   data() {
     return {
-      paginas: this.$route.query.paginas || 1,
-      idiomas: this.$route.query.idiomas || 1,
+      paginas: 1,
+      idiomas: 1,
       contador: 0,
     };
   },
   methods: {
     calcular() {
       this.contador = this.paginas * this.idiomas * 30;
-      this.$emit("total", this.contador);  
+      this.$emit("total", this.contador);   
     },
   },
   watch: {
     paginas(valor) {
       if (valor < 1) this.paginas = 1;
       this.calcular();
-      this.$emit('paginas', valor);
-      this.$emit('modificadoPaginas'); 
+      this.$emit('paginas', this.paginas)
     },
     idiomas(valor) {
       if (valor < 1) this.idiomas = 1;
       this.calcular(); 
-      this.$emit('idiomas', valor);
-      this.$emit('modificadoIdiomas');  
+      this.$emit('idiomas', this.idiomas)
     },
   },
   created() {
@@ -151,6 +149,4 @@ img {
     font-size: 0.8em;
   }
 }
-
-
 </style>
